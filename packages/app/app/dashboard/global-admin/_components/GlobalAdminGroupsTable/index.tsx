@@ -1,6 +1,7 @@
 'use client';
 
 import VerificationChip from '@/components/VerificationChip';
+import useGroupsList from '@/hooks/useGroupList';
 import { Group } from '@/types/model';
 import {
   Avatar,
@@ -17,7 +18,6 @@ import {
 } from '@nextui-org/react';
 import { MapPinIcon } from 'lucide-react';
 import React, { useCallback, useState } from 'react';
-import useGroupsTable from '../../_hooks/useGroupsTable';
 import ActionCell from './ActionCell';
 import Filters from './Filters';
 
@@ -83,7 +83,7 @@ const columns: Column<Group>[] = [
 const GlobalAdminGroupsTable = () => {
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set([]));
 
-  const { groups, isLoading, query, setQuery } = useGroupsTable();
+  const { groups, isLoading, query, setQuery } = useGroupsList();
 
   const getCellValue = useCallback((item: Group, key: keyof Group) => {
     const cell = columns.find((col) => col.key === key)?.cell;

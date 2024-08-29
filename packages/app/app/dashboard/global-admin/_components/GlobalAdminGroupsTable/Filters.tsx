@@ -1,4 +1,5 @@
 import GroupLocation from '@/components/GroupLocation';
+import { GroupsQueryParams, verificationStatuses } from '@/hooks/useGroupList';
 import { City } from '@/store/cities.store';
 import { Country } from '@/store/countries.store';
 import { Input } from '@nextui-org/input';
@@ -6,7 +7,6 @@ import { AutocompleteProps, Select, SelectItem } from '@nextui-org/react';
 import { capitalize } from 'lodash';
 import { Search } from 'lucide-react';
 import { SetValues, Values } from 'nuqs';
-import { GroupsQueryParams, verificationStatuses } from '../../_hooks/useGroupsTable';
 
 type Props = {
   query: Values<GroupsQueryParams>;
@@ -19,7 +19,7 @@ const Filters = ({ query, setQuery }: Props) => {
   const setCountry = (country: Country | null) => setQuery({ country: country?.name || null });
   const setCity = (city: City | null) => {
     if (city) {
-      const { name, stateCode } = city
+      const { name, stateCode } = city;
       let cityName = name;
       if (stateCode) cityName += `, ${stateCode}`;
       setQuery({ city: cityName });

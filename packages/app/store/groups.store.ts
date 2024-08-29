@@ -1,4 +1,4 @@
-import { GroupsQueryParams } from '@/app/dashboard/global-admin/_hooks/useGroupsTable';
+import { GroupsQueryParams } from '@/hooks/useGroupList';
 import { Group } from '@/types/model';
 import { generateErrorMessage } from '@/utils';
 import axios from 'axios';

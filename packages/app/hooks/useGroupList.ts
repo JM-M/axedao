@@ -1,6 +1,12 @@
 'use client';
 
-import { useGroups, useGroupsActions, useIsLoadingGroups } from '@/store/groups.store';
+import {
+  useGroups,
+  useGroupsActions,
+  useGroupsIsInitialized,
+  useIsLoadingGroups,
+  useTotalGroups,
+} from '@/store/groups.store';
 import { isEqual } from 'lodash';
 import { parseAsBoolean, parseAsString, useQueryStates } from 'nuqs';
 import { useEffect, useRef } from 'react';
@@ -17,7 +23,7 @@ const params = {
 
 export type GroupsQueryParams = typeof params;
 
-const useGroupsTable = () => {
+const useGroupsList = () => {
   const [query, setQuery] = useQueryStates(params);
   const [debouncedQuery] = useDebounce(query, 500);
 
@@ -26,6 +32,8 @@ const useGroupsTable = () => {
   const actions = useGroupsActions();
   const groups = useGroups();
   const isLoading = useIsLoadingGroups();
+  const totalGroups = useTotalGroups();
+  const isInitialized = useGroupsIsInitialized();
 
   useEffect(() => {
     if (isEqual(lastQueryRef.current, debouncedQuery)) return;
@@ -38,7 +46,9 @@ const useGroupsTable = () => {
     isLoading,
     query,
     setQuery,
+    totalGroups,
+    isInitialized,
   };
 };
 
-export default useGroupsTable;
+export default useGroupsList;

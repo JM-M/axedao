@@ -1,43 +1,14 @@
 'use client';
 
-import useOverviewQueries from '@/hooks/useOverviewQueries';
-import {
-  useGroups,
-  useGroupsActions,
-  useGroupsIsInitialized,
-  useIsLoadingGroups,
-  useTotalGroups,
-} from '@/store/groups.store';
+import useGroupsList from '@/hooks/useGroupList';
 import { Input } from '@nextui-org/input';
-import { isEqual } from 'lodash';
 import { Search } from 'lucide-react';
-import { useEffect, useRef } from 'react';
-import { useDebounce } from 'use-debounce';
 import GroupsGrid from './GroupsGrid';
 
 const Groups = () => {
-  const [query, setQuery] = useOverviewQueries();
-  const [debouncedQuery] = useDebounce(query, 500);
-
-  const lastQueryRef = useRef<typeof query | null>(null);
-
-  const groupsActions = useGroupsActions();
-  const groups = useGroups();
-  const totalGroups = useTotalGroups();
-  const isLoading = useIsLoadingGroups();
-  const isInitialized = useGroupsIsInitialized();
-
-  useEffect(() => {
-    if (isEqual(lastQueryRef.current, debouncedQuery)) return;
-    groupsActions.initialize({ searchTerm: debouncedQuery.searchTerm || '' });
-    lastQueryRef.current = debouncedQuery;
-  }, [debouncedQuery, groupsActions, lastQueryRef]);
-
-  const setSearchTerm = (searchTerm: string) => {
-    setQuery({ ...query, searchTerm });
-  };
-
+  const { groups, isLoading, query, setQuery, totalGroups, isInitialized } = useGroupsList();
   const { searchTerm } = query;
+  const setSearchTerm = (searchTerm: string) => setQuery({ searchTerm });
 
   return (
     <div className="flex flex-col gap-4 pt-5">
@@ -55,7 +26,7 @@ const Groups = () => {
       </div>
       <div className="flex items-center justify-between">
         {typeof totalGroups === 'number' && (
-          <span className="ml-auto text-small text-default-400">{totalGroups} total groups</span>
+          <span className="ml-auto text-small text-default-400">Total number of groups: {totalGroups}</span>
         )}
       </div>
       <GroupsGrid groups={groups} isLoading={isLoading || !isInitialized} />
