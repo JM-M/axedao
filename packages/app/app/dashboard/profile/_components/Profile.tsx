@@ -24,10 +24,12 @@ const Profile = () => {
         className="aspect-square h-full max-h-32 w-full max-w-32"
       />
       <div className="flex flex-1 flex-col gap-3">
-        <div className="flex flex-col items-center justify-center gap-10 xs:flex-row">
+        <div className="flex flex-col items-center justify-center gap-5 md:gap-10 xs:flex-row">
           <div className="text-center xs:text-left">
             <h3 className="text-lg font-medium">{name}</h3>
-            <div className="text-small capitalize text-default-500 flex items-center gap-2 mt-2">{title}</div>
+            <div className="text-small capitalize text-default-500 flex justify-center xs:justify-start gap-2 mt-2">
+              {title}
+            </div>
           </div>
           <div className="xs:mb-auto xs:ml-auto">
             <Button

@@ -44,7 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <div className="relative flex min-h-screen flex-col">
                   <Navbar />
                   {children}
-                  <footer className="mt-auto flex w-full items-center justify-center gap-1 py-10">
+                  <footer className="mt-auto flex w-full items-center justify-center gap-1 pb-20 md:pb-10 py-10">
                     <span className="text-default-600">Powered by </span>
                     <span className="text-primary">AXÉ DAO</span>
                   </footer>
