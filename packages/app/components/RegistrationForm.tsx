@@ -26,11 +26,13 @@ const RegistrationForm = () => {
     },
   });
 
+  const { registrationMutation } = useRegister();
+  const resetSubmitMutation = registrationMutation.reset;
+
   useEffect(() => {
     setValue('walletAddress', address || '');
-  }, [address, isConnected, setValue]);
-
-  const { registrationMutation } = useRegister();
+    resetSubmitMutation();
+  }, [address, isConnected, setValue, resetSubmitMutation]);
 
   const isSubmitting = registrationMutation.isPending;
   const isLoading = session.status === 'loading';

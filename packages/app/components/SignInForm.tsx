@@ -30,8 +30,8 @@ const SignInForm = ({ className }: Props) => {
 
   useEffect(() => {
     setValue('walletAddress', address || '');
+    resetSubmitMutation();
     if (address) {
-      resetSubmitMutation();
       trigger();
     }
   }, [address, isConnected, setValue, trigger, resetSubmitMutation]);
